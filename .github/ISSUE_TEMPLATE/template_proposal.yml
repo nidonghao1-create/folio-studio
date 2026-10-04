@@ -1,0 +1,48 @@
+name: Template proposal
+description: Propose a new portfolio presentation with a clear audience and accessible behavior.
+title: "[Template]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Read docs/template-authoring.md first. Templates are reviewed source contributions and must preserve the shared document, offline export, and sample labeling.
+  - type: input
+    id: name
+    attributes:
+      label: Proposed English template name
+    validations:
+      required: true
+  - type: textarea
+    id: audience
+    attributes:
+      label: Creator and work this template serves
+      description: Explain what an existing template cannot communicate well.
+    validations:
+      required: true
+  - type: textarea
+    id: direction
+    attributes:
+      label: Visual and interaction direction
+      description: Include a desktop and narrow-screen sketch using fictional or consented content.
+    validations:
+      required: true
+  - type: textarea
+    id: assets
+    attributes:
+      label: Asset origins and licenses
+      description: List any proposed images, fonts, icons, or illustrations. Write "Original HTML/CSS only" when applicable.
+    validations:
+      required: true
+  - type: checkboxes
+    id: requirements
+    attributes:
+      label: Required behavior
+      options:
+        - label: Preserve all shared profile and project content
+          required: true
+        - label: Support touch, keyboard, visible focus, and reduced motion
+          required: true
+        - label: Keep standalone exports free of remote asset or script dependencies
+          required: true
+        - label: Keep fictional sample content explicitly labeled
+          required: true

@@ -1,0 +1,147 @@
+{
+  "main": {
+    "date": "2026-10-04T17:14:09.841Z",
+    "node": "v24.19.0",
+    "browserVersion": "154.0.8037.93",
+    "results": [
+      {
+        "name": "Catalog has four templates and profession filters",
+        "status": "passed",
+        "durationMs": 264
+      },
+      {
+        "name": "Template exploration opens and closes with Escape",
+        "status": "passed",
+        "durationMs": 90
+      },
+      {
+        "name": "A first-time developer gets the developer sample on a touch screen",
+        "status": "passed",
+        "durationMs": 330
+      },
+      {
+        "name": "The brand returns to templates without discarding the draft",
+        "status": "passed",
+        "durationMs": 81
+      },
+      {
+        "name": "Editing updates preview and persists after reload",
+        "status": "passed",
+        "durationMs": 656
+      },
+      {
+        "name": "An unfinished link survives reload without losing the draft",
+        "status": "passed",
+        "durationMs": 466
+      },
+      {
+        "name": "Uploaded PNG is optimized and included in backup",
+        "status": "passed",
+        "durationMs": 11
+      },
+      {
+        "name": "Template switching preserves content and images",
+        "status": "passed",
+        "durationMs": 812
+      },
+      {
+        "name": "Keyboard alternative reorders and removes projects",
+        "status": "passed",
+        "durationMs": 86
+      },
+      {
+        "name": "Explicit ownership confirmation removes sample label",
+        "status": "passed",
+        "durationMs": 66
+      },
+      {
+        "name": "Project backup downloads and restores after clearing",
+        "status": "passed",
+        "durationMs": 218
+      },
+      {
+        "name": "Malformed project import keeps the existing draft",
+        "status": "passed",
+        "durationMs": 55
+      },
+      {
+        "name": "Export requires public-content confirmation and produces standalone HTML",
+        "status": "passed",
+        "durationMs": 149
+      },
+      {
+        "name": "GitHub import uses returned data and does not invent a demo",
+        "status": "passed",
+        "durationMs": 163
+      },
+      {
+        "name": "GitHub missing account and rate limit have honest errors",
+        "status": "passed",
+        "durationMs": 171
+      },
+      {
+        "name": "Escaped content renders as text with no script execution",
+        "status": "passed",
+        "durationMs": 211
+      },
+      {
+        "name": "Catalog and editor fit mobile viewport",
+        "status": "passed",
+        "durationMs": 402
+      },
+      {
+        "name": "Unavailable storage warns honestly and allows a project backup",
+        "status": "passed",
+        "durationMs": 974
+      },
+      {
+        "name": "All exported templates fit mobile and desktop with working case details",
+        "status": "passed",
+        "durationMs": 674
+      },
+      {
+        "name": "Reduced motion preference disables animations",
+        "status": "passed",
+        "durationMs": 51
+      },
+      {
+        "name": "No uncaught browser runtime errors",
+        "status": "passed",
+        "durationMs": 0
+      }
+    ],
+    "runtimeErrors": []
+  },
+  "draft": {
+    "date": "2026-10-04T17:16:43.063Z",
+    "status": "passed",
+    "node": "v24.19.0",
+    "browserVersion": "154.0.8037.93",
+    "checks": 11,
+    "results": [
+      "Unfinished email and URLs persist after reload",
+      "Image upload succeeds with unfinished links and email",
+      "Portable backup preserves every unfinished field and the image",
+      "Downloaded unfinished backup imports into a blank editor",
+      "Unsafe/incomplete fields remain inert and prevent website export",
+      "Quota failure keeps prior saved data and permits an emergency backup",
+      "Successful retry restores saved status without runtime errors",
+      "An unreadable saved draft stays intact and can be downloaded for recovery",
+      "Only an explicit replacement confirmation releases recovery protection",
+      "First use of Project Studio matches its fictional developer preview",
+      "Later template switches preserve edited creator content and profession"
+    ]
+  },
+  "unit": {
+    "passed": 53,
+    "failed": 0,
+    "skipped": 0
+  },
+  "liveGithub": {
+    "timestamp": "2026-10-04T17:08:05.168Z",
+    "username": "octocat",
+    "ownerRepositories": 8,
+    "truncated": false
+  },
+  "publication": "pending authentication"
+}

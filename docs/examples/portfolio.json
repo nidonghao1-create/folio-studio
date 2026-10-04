@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "template": "editorial",
+  "profession": "designer",
+  "name": "Morgan Sample",
+  "role": "Independent designer",
+  "tagline": "A fictional portfolio for testing a template.",
+  "bio": "Replace this sample profile with your own introduction.",
+  "email": "",
+  "location": "",
+  "github": "",
+  "accent": "#5c62d6",
+  "motion": false,
+  "sample": true,
+  "projects": [
+    {
+      "id": "sample-field-notes",
+      "title": "Field Notes — fictional sample",
+      "category": "Product design",
+      "description": "A fictional project used to evaluate this template.",
+      "challenge": "Make a small set of notes easier to browse.",
+      "solution": "Group related notes and clarify the reading order.",
+      "outcome": "A sample design direction, not a measured product result.",
+      "url": "",
+      "source": "",
+      "image": "",
+      "tags": ["Sample", "Design"],
+      "featured": true
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+name: Bug report
+description: Report a reproducible problem with editing, importing, previewing, or exporting.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use fictional or redacted content. Do not attach personal portfolio backups, credentials, or security exploit details. For vulnerabilities, follow SECURITY.md.
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      placeholder: "0.1.0, or a commit SHA"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser, operating system, and screen size
+      placeholder: "Chromium 140, macOS, 1440 × 900"
+    validations:
+      required: true
+  - type: dropdown
+    id: template
+    attributes:
+      label: Template
+      options:
+        - Editorial
+        - Visual Gallery
+        - Project Studio
+        - Interactive Room
+        - Template-independent
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: "1. Open the editor…\n2. Choose…\n3. Export…"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+      description: Include error text and a screenshot if useful. Remove private information first.
+    validations:
+      required: true
+  - type: checkboxes
+    id: location
+    attributes:
+      label: Where does it happen?
+      options:
+        - label: Editor
+        - label: Portfolio preview
+        - label: Exported website
+        - label: GitHub import

@@ -1,0 +1,8 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+docs/demos/
+src/license.js
+package-lock.json
+LICENSE

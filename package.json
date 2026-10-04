@@ -1,0 +1,24 @@
+{
+  "name": "folio-studio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "An open-source portfolio studio for designers and developers.",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:e2e": "node tests/browser.mjs && node tests/draft-browser.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "screenshots": "node scripts/capture-demo.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1",
+    "prettier": "3.9.9"
+  }
+}
