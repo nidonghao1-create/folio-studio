@@ -233,5 +233,5 @@ test("template and accent values cannot inject CSS or HTML into markup", () => {
     accent: "#fff; background:url(javascript:alert(1))",
   });
   assert.match(html, /fp--editorial/);
-  assert.doesNotMatch(html, /onclick=|background:url|style="/);
+  assert.doesNotMatch(html, /onclick=|background:url|--fp-accent:/);
 });

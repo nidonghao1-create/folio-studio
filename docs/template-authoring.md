@@ -94,6 +94,8 @@ An illustrative metadata entry for a proposed template:
 
 ## Acceptance checklist
 
+For motion contributions, follow the [motion guide](MOTION.md). Keep timing bounded, gate view timelines behind a feature check, and leave content visible without animation. The accessible heading must retain one complete name. Never animate a transform that hides keyboard focus or use hover as the only way to reveal project information. Run `tests/motion-browser.mjs` in addition to the existing checks.
+
 - [ ] Template switching preserves every supported content field and project order.
 - [ ] Saved JSON round-trips through `serializeDraft` and `restoreDraft`, including unfinished email and project links.
 - [ ] Rendering omits unsafe navigation from a restored draft; website export rejects unfinished or unsafe contact/project links.

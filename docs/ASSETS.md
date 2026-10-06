@@ -20,3 +20,7 @@ The software license is the standard [Apache License 2.0](https://www.apache.org
 Include its path, creator, original source URL (if external), exact license/version, required attribution, and a copy of any required notice. Obtain permission before adding another person's work. Avoid assets whose license only permits use on a specific account, excludes redistribution, or is unclear. Repository samples should be original or have explicit rights for public source distribution and exported-template use.
 
 If an asset has a different license from the code, record that distinction here and beside the file. Do not imply that Apache-2.0 overrides a third-party license or relicenses user content.
+
+## Motion branch assets
+
+`docs/motion/*.gif` are recordings of the actual standalone template exports, captured in an isolated test browser with fictional sample content. Choreography, CSS geometry and generated artwork are original Folio Studio work under Apache-2.0. No competitor code, models, videos, fonts or images are included.

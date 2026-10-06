@@ -39,6 +39,22 @@ function textParagraphs(value, className = "") {
     .join("");
 }
 
+// A single accessible heading, with decorative word masks for choreography.
+// Delays are bounded so even a long introduction finishes promptly.
+function motionTitle(value) {
+  const text = String(value ?? "");
+  let word = 0;
+  const visual = text
+    .split(/(\s+)/)
+    .map((part) => {
+      if (/^\s*$/.test(part)) return e(part);
+      const delay = Math.min(word++, 10) * 45;
+      return `<span class="fp-title-mask"><span class="fp-title-word" style="--fp-word-delay:${delay}ms">${e(part)}</span></span>`;
+    })
+    .join("");
+  return `<span class="fp-title-accessible">${e(text)}</span><span aria-hidden="true">${visual}</span>`;
+}
+
 function externalLink(value, label, className = "fp-link") {
   const url = safeUrl(value);
   return url
@@ -123,7 +139,7 @@ function editorial(doc) {
   return `<div class="fp-editorial-shell">
     <header class="fp-masthead"><a class="fp-wordmark" href="#fp-top">${e(doc.name || "Your name")}</a><span>${e(doc.role || "Independent creator")}</span><a class="fp-nav-link" href="#fp-work">Selected work <span aria-hidden="true">↓</span></a></header>
     ${sampleNotice(doc)}
-    <section class="fp-editorial-hero" aria-labelledby="fp-heading"><div><span class="fp-eyebrow">${e(doc.role || "An independent practice")}${doc.location ? ` · ${e(doc.location)}` : ""}</span><h1 id="fp-heading">${e(doc.tagline || "Thoughtful work. Made personal.")}</h1></div><div class="fp-editorial-intro"><span class="fp-intro-mark" aria-hidden="true">✳</span>${textParagraphs(doc.bio)}${contactLinks(doc)}</div></section>
+    <section class="fp-editorial-hero" aria-labelledby="fp-heading"><div><span class="fp-eyebrow">${e(doc.role || "An independent practice")}${doc.location ? ` · ${e(doc.location)}` : ""}</span><h1 id="fp-heading">${motionTitle(doc.tagline || "Thoughtful work. Made personal.")}</h1></div><div class="fp-editorial-intro"><span class="fp-intro-mark" aria-hidden="true">✳</span>${textParagraphs(doc.bio)}${contactLinks(doc)}</div></section>
     <section id="fp-work" class="fp-editorial-work" aria-labelledby="fp-work-heading"><div class="fp-section-heading"><h2 id="fp-work-heading">Selected work</h2><span>${String(doc.projects.length).padStart(2, "0")} projects</span></div>
     ${doc.projects.length ? doc.projects.map((project, index) => `<article id="${projectId(index)}" class="fp-editorial-project"><div class="fp-editorial-project-label">${projectMeta(project, index)}<h3>${e(project.title || "Untitled project")}</h3>${projectTags(project)}</div><div class="fp-editorial-project-body">${projectArt(project, index)}${textParagraphs(project.description, "fp-project-description")}${projectLinks(project, doc.profession)}${caseStudy(project)}</div></article>`).join("") : emptyProjects()}
     </section>${pageFooter(doc)}</div>`;
@@ -133,7 +149,7 @@ function gallery(doc) {
   return `<div class="fp-gallery-shell">
     <header class="fp-masthead"><a class="fp-wordmark" href="#fp-top">${e(doc.name || "Your name")}<span class="fp-wordmark-dot" aria-hidden="true">.</span></a><a class="fp-nav-link" href="#fp-work">The collection <span aria-hidden="true">↓</span></a></header>
     ${sampleNotice(doc)}
-    <section class="fp-gallery-hero" aria-labelledby="fp-heading"><div><span class="fp-eyebrow">${e(doc.role || "Independent creator")}${doc.location ? ` · ${e(doc.location)}` : ""}</span><h1 id="fp-heading">${e(doc.tagline || "A collection of things I care about.")}</h1></div><div class="fp-gallery-intro">${textParagraphs(doc.bio)}${contactLinks(doc)}</div></section>
+    <section class="fp-gallery-hero" aria-labelledby="fp-heading"><div><span class="fp-eyebrow">${e(doc.role || "Independent creator")}${doc.location ? ` · ${e(doc.location)}` : ""}</span><h1 id="fp-heading">${motionTitle(doc.tagline || "A collection of things I care about.")}</h1></div><div class="fp-gallery-intro">${textParagraphs(doc.bio)}${contactLinks(doc)}</div></section>
     <section id="fp-work" aria-labelledby="fp-work-heading"><div class="fp-section-heading"><h2 id="fp-work-heading">The collection</h2><span>${String(doc.projects.length).padStart(2, "0")} pieces of work</span></div><div class="fp-gallery-grid">
     ${doc.projects.length ? doc.projects.map((project, index) => `<article id="${projectId(index)}" class="fp-gallery-project${project.featured ? " fp-gallery-project--featured" : ""}">${projectArt(project, index)}<div class="fp-gallery-project-content">${projectMeta(project, index)}<h3>${e(project.title || "Untitled project")}</h3>${textParagraphs(project.description, "fp-project-description")}${projectTags(project)}${projectLinks(project, doc.profession)}${caseStudy(project)}</div></article>`).join("") : emptyProjects()}
     </div></section><section class="fp-gallery-end"><span class="fp-eyebrow">The next good thing starts with a conversation.</span><h2>Let’s make<br />something matter.</h2>${contactLinks(doc)}</section>${pageFooter(doc)}</div>`;
@@ -143,7 +159,7 @@ function studio(doc) {
   return `<div class="fp-studio-shell">
     <header class="fp-studio-topbar"><a class="fp-wordmark" href="#fp-top"><span class="fp-studio-symbol" aria-hidden="true">[ / ]</span>${e(doc.name || "Your name")}</a><span class="fp-studio-state"><span aria-hidden="true"></span>Independent ${doc.profession === "developer" ? "developer" : "creator"}</span><a class="fp-nav-link" href="#fp-work">Projects <span aria-hidden="true">↓</span></a></header>
     ${sampleNotice(doc)}
-    <section class="fp-studio-hero" aria-labelledby="fp-heading"><div class="fp-studio-heading"><span class="fp-eyebrow">${e(doc.role || "Building things for the web")}</span><h1 id="fp-heading">${e(doc.tagline || "Ideas into things that work.")}</h1>${contactLinks(doc)}</div><aside class="fp-studio-about"><div class="fp-panel-label"><span>ABOUT / ${e(doc.name || "Creator")}</span><span aria-hidden="true">↗</span></div><div class="fp-studio-about-copy">${textParagraphs(doc.bio)}${doc.location ? `<p class="fp-studio-location"><span aria-hidden="true">⌖</span> ${e(doc.location)}</p>` : ""}</div><div class="fp-studio-panel-footer"><span>${doc.projects.length} selected ${doc.projects.length === 1 ? "project" : "projects"}</span><span>Made with intention</span></div></aside></section>
+    <section class="fp-studio-hero" aria-labelledby="fp-heading"><div class="fp-studio-heading"><span class="fp-eyebrow">${e(doc.role || "Building things for the web")}</span><h1 id="fp-heading">${motionTitle(doc.tagline || "Ideas into things that work.")}</h1>${contactLinks(doc)}</div><aside class="fp-studio-about"><div class="fp-panel-label"><span>ABOUT / ${e(doc.name || "Creator")}</span><span aria-hidden="true">↗</span></div><div class="fp-studio-about-copy">${textParagraphs(doc.bio)}${doc.location ? `<p class="fp-studio-location"><span aria-hidden="true">⌖</span> ${e(doc.location)}</p>` : ""}</div><div class="fp-studio-panel-footer"><span>${doc.projects.length} selected ${doc.projects.length === 1 ? "project" : "projects"}</span><span>Made with intention</span></div></aside></section>
     <section id="fp-work" aria-labelledby="fp-work-heading"><div class="fp-section-heading"><h2 id="fp-work-heading"><span class="fp-studio-slash" aria-hidden="true">/</span> Projects</h2><span>Build · Share · Iterate</span></div><div class="fp-studio-grid">
     ${doc.projects.length ? doc.projects.map((project, index) => `<article id="${projectId(index)}" class="fp-studio-project"><div class="fp-studio-project-titlebar"><span>${number(index)} / ${e(project.category || "Project")}</span>${project.featured ? '<span class="fp-featured">Featured</span>' : '<span aria-hidden="true">↗</span>'}</div>${projectArt(project, index)}<div class="fp-studio-project-content"><h3>${e(project.title || "Untitled project")}</h3>${textParagraphs(project.description, "fp-project-description")}${projectTags(project)}${projectLinks(project, doc.profession)}${caseStudy(project)}</div></article>`).join("") : emptyProjects()}
     </div></section>${pageFooter(doc)}</div>`;
@@ -158,7 +174,7 @@ function room(doc) {
   return `<div class="fp-room-shell">
     <header class="fp-masthead"><a class="fp-wordmark" href="#fp-top">${e(doc.name || "Your name")}<span class="fp-room-wordmark-sub">A personal exhibition</span></a><a class="fp-nav-link" href="#fp-work">Exhibit notes <span aria-hidden="true">↓</span></a></header>
     ${sampleNotice(doc)}
-    <section class="fp-room-hero" aria-labelledby="fp-heading"><div><span class="fp-eyebrow">${e(doc.role || "Independent creator")}${doc.location ? ` · ${e(doc.location)}` : ""}</span><h1 id="fp-heading">${e(doc.tagline || "A little space for big ideas.")}</h1></div><div class="fp-room-intro">${textParagraphs(doc.bio)}${contactLinks(doc)}</div></section>
+    <section class="fp-room-hero" aria-labelledby="fp-heading"><div><span class="fp-eyebrow">${e(doc.role || "Independent creator")}${doc.location ? ` · ${e(doc.location)}` : ""}</span><h1 id="fp-heading">${motionTitle(doc.tagline || "A little space for big ideas.")}</h1></div><div class="fp-room-intro">${textParagraphs(doc.bio)}${contactLinks(doc)}</div></section>
     <section class="fp-room-exhibition" aria-labelledby="fp-room-heading"><div class="fp-room-exhibition-heading"><h2 id="fp-room-heading">Step into my work.</h2><p>Select an object to explore a project.</p></div><div class="fp-room-stage"><div class="fp-room-architecture" aria-hidden="true"><span class="fp-room-wall fp-room-wall--left"></span><span class="fp-room-wall fp-room-wall--right"></span><span class="fp-room-skylight"></span><span class="fp-room-floor"></span></div><div class="fp-room-objects">${doc.projects.length ? doc.projects.map(roomObject).join("") : '<p class="fp-room-stage-empty">A place for the next idea.</p>'}</div><div class="fp-room-stage-caption"><span>Personal exhibition</span><span>${String(doc.projects.length).padStart(2, "0")} exhibits</span></div></div></section>
     <section id="fp-work" class="fp-room-records" aria-labelledby="fp-work-heading"><div class="fp-section-heading"><h2 id="fp-work-heading">Exhibit notes</h2><span>A closer look at the work</span></div>${doc.projects.length ? doc.projects.map((project, index) => `<article id="${projectId(index)}" class="fp-room-record"><div class="fp-room-record-number" aria-hidden="true">${number(index)}</div><div class="fp-room-record-content">${projectMeta(project, index)}<h3>${e(project.title || "Untitled project")}</h3>${textParagraphs(project.description, "fp-project-description")}${projectTags(project)}${projectLinks(project, doc.profession)}${caseStudy(project)}</div>${projectArt(project, index)}</article>`).join("") : emptyProjects()}</section>${pageFooter(doc)}</div>`;
 }

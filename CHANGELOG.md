@@ -2,6 +2,16 @@
 
 Changes that affect creators, exported websites, and contributors are recorded here.
 
+## Unreleased — template motion
+
+- Distinct motion for all four templates: typography reveals, image unfolding and drift, panel assembly, and spatial exhibit entrances.
+- Hover/focus feedback, animated case-study opening and link transitions.
+- Replay controls in template exploration and live preview; the existing motion preference applies to exported websites too.
+- Native CSS scroll timelines with timed fallback; no added runtime dependency or template script.
+- Reduced-motion, touch, keyboard, print and offline-export regression checks, plus actual motion recordings.
+
+See [the motion guide](docs/MOTION.md) for demonstrations and browser limitations. This work is on `feature/template-motion` and is not yet merged into the live Pages editor.
+
 ## 0.1.0 — 2026-10-05
 
 Initial local-first release scope:

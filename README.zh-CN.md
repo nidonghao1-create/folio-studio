@@ -8,6 +8,8 @@
 
 ![Folio Studio 桌面编辑器；展示明确标注的虚构样例作品集](docs/screenshots/studio-desktop.png)
 
+**动效分支：** `feature/template-motion`。四套模板的动效与录屏见[动效指南](docs/MOTION.md)，尚未合并到线上编辑器。
+
 ## 四个模板，同一份内容
 
 | 模板                 | 适合用途             | 呈现方式                                    |

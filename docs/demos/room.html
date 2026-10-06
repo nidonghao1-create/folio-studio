@@ -2161,6 +2161,362 @@ The creator retains rights to their own content and images.
     margin-bottom: 44px;
   }
 }
+/* MOTION: original CSS choreography, shared by sandboxed previews and exports.
+   Content is visible by default. No script, scroll interception or persistent
+   animation loop is needed. Scroll timelines are a progressive enhancement. */
+.fp-title-accessible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.fp-title-mask {
+  display: inline-block;
+  vertical-align: top;
+  max-width: 100%;
+  overflow: clip;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.fp-title-word {
+  display: inline-block;
+  max-width: 100%;
+}
+@keyframes fp-type-rise {
+  from {
+    transform: translateY(110%) rotate(3deg);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes fp-soft-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fp-panel-build {
+  from {
+    opacity: 0;
+    transform: perspective(1000px) rotateY(-9deg) translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fp-art-unfold {
+  from {
+    clip-path: inset(12% 5% 12% 5%);
+    scale: 0.94;
+  }
+  to {
+    clip-path: inset(0);
+    scale: 1;
+  }
+}
+@keyframes fp-chapter-arrive {
+  from {
+    opacity: 0.35;
+    translate: 0 36px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes fp-room-arrive {
+  from {
+    opacity: 0;
+    translate: 0 35px;
+    scale: 0.88;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+}
+@keyframes fp-light-arrive {
+  from {
+    opacity: 0;
+    translate: 60px 0;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes fp-art-drift {
+  from {
+    translate: 0 12px;
+  }
+  to {
+    translate: 0 -12px;
+  }
+}
+@keyframes fp-scan {
+  from {
+    translate: -120% 0;
+  }
+  to {
+    translate: 120% 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fp:not(.fp--still) {
+    --fp-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .fp:not(.fp--still) .fp-title-word {
+    animation: fp-type-rise 900ms var(--fp-ease)
+      calc(100ms + var(--fp-word-delay)) backwards;
+  }
+  .fp--gallery:not(.fp--still) .fp-title-word {
+    animation-duration: 1100ms;
+  }
+  .fp--studio:not(.fp--still) .fp-title-word {
+    animation-duration: 650ms;
+  }
+  .fp:not(.fp--still) :is(.fp-masthead, .fp-studio-topbar) {
+    animation: fp-soft-arrive 700ms var(--fp-ease) backwards;
+  }
+  .fp:not(.fp--still)
+    :is(.fp-editorial-intro, .fp-gallery-intro, .fp-room-intro) {
+    animation: fp-soft-arrive 1000ms var(--fp-ease) 300ms backwards;
+  }
+  .fp--editorial:not(.fp--still) .fp-intro-mark {
+    transition: rotate 900ms var(--fp-ease);
+  }
+  .fp--editorial:not(.fp--still) .fp-editorial-intro:hover .fp-intro-mark {
+    rotate: 90deg;
+  }
+  .fp--studio:not(.fp--still) .fp-studio-about {
+    animation: fp-panel-build 1000ms var(--fp-ease) 240ms backwards;
+  }
+  .fp:not(.fp--still) :is(.fp-editorial-project, .fp-room-record) {
+    animation: fp-soft-arrive 900ms var(--fp-ease) 250ms backwards;
+  }
+  .fp:not(.fp--still) .fp-studio-project {
+    animation: fp-panel-build 900ms var(--fp-ease) 350ms backwards;
+  }
+  .fp:not(.fp--still) .fp-studio-project:nth-child(even) {
+    animation-delay: 450ms;
+  }
+  .fp:not(.fp--still) .fp-gallery-project > .fp-art {
+    animation: fp-art-unfold 1200ms var(--fp-ease) 180ms backwards;
+  }
+  .fp:not(.fp--still) .fp-room-object {
+    animation: fp-room-arrive 1100ms var(--fp-ease) 220ms backwards;
+  }
+  .fp:not(.fp--still) .fp-room-object:nth-child(3n + 2) {
+    animation-delay: 350ms;
+  }
+  .fp:not(.fp--still) .fp-room-object:nth-child(3n) {
+    animation-delay: 480ms;
+  }
+  .fp:not(.fp--still) .fp-room-skylight {
+    animation: fp-light-arrive 1600ms var(--fp-ease) 120ms backwards;
+  }
+  .fp:not(.fp--still)
+    :is(
+      .fp-nav-link span,
+      .fp-top-link span,
+      .fp-contact-link span,
+      .fp-link span,
+      .fp-button span,
+      .fp-room-label-arrow
+    ) {
+    display: inline-block;
+    transition: translate 350ms var(--fp-ease);
+  }
+  .fp:not(.fp--still)
+    :is(.fp-nav-link, .fp-top-link, .fp-contact-link, .fp-link, .fp-button):is(
+      :hover,
+      :focus-visible
+    )
+    span {
+    translate: 3px -3px;
+  }
+  .fp:not(.fp--still) :is(.fp-nav-link, .fp-contact-link, .fp-link) {
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    transition:
+      background-size 500ms var(--fp-ease),
+      color 250ms;
+  }
+  .fp:not(.fp--still)
+    :is(.fp-nav-link, .fp-contact-link, .fp-link):is(:hover, :focus-visible) {
+    background-size: 100% 1px;
+  }
+  .fp:not(.fp--still) .fp-case[open] .fp-case-content {
+    animation: fp-soft-arrive 450ms var(--fp-ease) backwards;
+  }
+  .fp:not(.fp--still) .fp-art :is(img, .fp-art-shape) {
+    transition:
+      scale 900ms var(--fp-ease),
+      translate 900ms var(--fp-ease),
+      rotate 900ms var(--fp-ease);
+  }
+  .fp:not(.fp--still) .fp-room-display {
+    transition: transform 700ms var(--fp-ease);
+  }
+  .fp:not(.fp--still) .fp-room-sculpture {
+    transition:
+      translate 650ms var(--fp-ease),
+      rotate 650ms var(--fp-ease);
+  }
+  .fp:not(.fp--still) .fp-room-object-shadow {
+    transition:
+      scale 650ms var(--fp-ease),
+      opacity 650ms;
+  }
+  .fp:not(.fp--still) .fp-room-object:focus-visible .fp-room-sculpture {
+    translate: 0 -8px;
+  }
+  .fp:not(.fp--still) .fp-room-object:focus-visible .fp-room-label-arrow {
+    translate: 3px -3px;
+  }
+  .fp:not(.fp--still) :is(.fp-studio-project, .fp-gallery-project) {
+    transition:
+      box-shadow 500ms var(--fp-ease),
+      border-color 500ms,
+      background-color 500ms;
+  }
+  .fp:not(.fp--still) .fp-studio-project {
+    position: relative;
+    isolation: isolate;
+  }
+  .fp:not(.fp--still) .fp-studio-project::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--fp-accent-readable);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 400ms;
+  }
+  .fp:not(.fp--still) .fp-studio-project:focus-within::after {
+    opacity: 0.6;
+  }
+  /* A named stage timeline lets all objects share one spatial entrance. */
+  @supports (animation-timeline: view()) {
+    .fp:not(.fp--still):not(.fp--compact)
+      :is(
+        .fp-editorial-project,
+        .fp-studio-project,
+        .fp-room-record,
+        .fp-section-heading,
+        .fp-gallery-end
+      ) {
+      animation: fp-chapter-arrive 1ms linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 90%;
+    }
+    .fp--gallery:not(.fp--still):not(.fp--compact)
+      .fp-gallery-project
+      > .fp-art {
+      animation: fp-art-unfold 1ms linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+    .fp--gallery:not(.fp--still):not(.fp--compact)
+      .fp-art
+      :is(img, .fp-art-shape--one) {
+      animation: fp-art-drift 1ms linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+    .fp:not(.fp--still):not(.fp--compact) .fp-room-stage {
+      view-timeline-name: --fp-stage;
+      view-timeline-axis: block;
+    }
+    .fp:not(.fp--still):not(.fp--compact) .fp-room-object {
+      animation: fp-room-arrive 1ms var(--fp-ease) both;
+      animation-timeline: --fp-stage;
+      animation-range: entry 0% entry 95%;
+    }
+    /* Deep links and keyboard access never wait for scroll choreography. */
+    .fp:not(.fp--still):not(.fp--compact)
+      :is(article:target, article:focus-within, .fp-room-object:focus-visible) {
+      animation: none;
+    }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .fp:not(.fp--still)
+      .fp-editorial-project:hover
+      .fp-art
+      :is(img, .fp-art-shape--one) {
+      scale: 1.05;
+    }
+    .fp:not(.fp--still)
+      .fp-gallery-project:hover
+      .fp-art
+      :is(img, .fp-art-shape--one) {
+      scale: 1.07;
+      rotate: -2deg;
+    }
+    .fp:not(.fp--still) .fp-gallery-project:hover .fp-art-shape--two {
+      translate: 0 -7px;
+      rotate: 5deg;
+    }
+    .fp:not(.fp--still) .fp-studio-project:hover {
+      box-shadow: 0 18px 40px -28px #000;
+    }
+    .fp:not(.fp--still) .fp-studio-project:hover::after {
+      opacity: 0.6;
+    }
+    .fp:not(.fp--still) .fp-studio-project .fp-art::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        transparent 30%,
+        #ffffff30 50%,
+        transparent 70%
+      );
+      translate: -120% 0;
+      pointer-events: none;
+    }
+    .fp:not(.fp--still) .fp-studio-project:hover .fp-art::after {
+      animation: fp-scan 1000ms var(--fp-ease);
+    }
+    .fp:not(.fp--still) .fp-room-object:hover .fp-room-display {
+      transform: perspective(800px) rotateY(-5deg) translateY(-6px);
+    }
+    .fp:not(.fp--still) .fp-room-object:hover .fp-room-sculpture {
+      translate: 0 -8px;
+      rotate: -3deg;
+    }
+    .fp:not(.fp--still) .fp-room-object:hover .fp-room-object-shadow {
+      scale: 0.85;
+      opacity: 0.45;
+    }
+    .fp:not(.fp--still) .fp-room-object:hover .fp-room-label-arrow {
+      translate: 3px -3px;
+    }
+  }
+  @media (max-width: 600px) {
+    .fp:not(.fp--still) .fp-title-word {
+      animation-duration: 650ms;
+    }
+    .fp:not(.fp--still) .fp-studio-about {
+      animation-name: fp-soft-arrive;
+    }
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .fp *,
   .fp *::before,
@@ -2188,6 +2544,12 @@ The creator retains rights to their own content and images.
   transform: none;
 }
 @media print {
+  .fp *,
+  .fp *::before,
+  .fp *::after {
+    animation: none !important;
+    transition: none !important;
+  }
   .fp {
     background: #fff !important;
     color: #111 !important;
@@ -2307,6 +2669,6 @@ The creator retains rights to their own content and images.
 </style></head><body><main id="fp-top" class="fp fp--room" data-accent="default" style="--fp-accent:#c45d3a"><a class="fp-skip-link" href="#fp-work">Skip to projects</a><div class="fp-room-shell">
     <header class="fp-masthead"><a class="fp-wordmark" href="#fp-top">Avery Morgan<span class="fp-room-wordmark-sub">A personal exhibition</span></a><a class="fp-nav-link" href="#fp-work">Exhibit notes <span aria-hidden="true">↓</span></a></header>
     <div class="fp-sample"><span class="fp-sample-dot" aria-hidden="true"></span><strong>Sample portfolio</strong><span>Fictional projects · Replace with your own work</span></div>
-    <section class="fp-room-hero" aria-labelledby="fp-heading"><div><span class="fp-eyebrow">Independent designer · Fictional sample</span><h1 id="fp-heading">Thoughtful identities and digital experiences.</h1></div><div class="fp-room-intro"><p>This is a fictional sample profile created to demonstrate Folio Studio. All projects are invented examples. Replace this content with your own work before publishing.</p></div></section>
+    <section class="fp-room-hero" aria-labelledby="fp-heading"><div><span class="fp-eyebrow">Independent designer · Fictional sample</span><h1 id="fp-heading"><span class="fp-title-accessible">Thoughtful identities and digital experiences.</span><span aria-hidden="true"><span class="fp-title-mask"><span class="fp-title-word" style="--fp-word-delay:0ms">Thoughtful</span></span> <span class="fp-title-mask"><span class="fp-title-word" style="--fp-word-delay:45ms">identities</span></span> <span class="fp-title-mask"><span class="fp-title-word" style="--fp-word-delay:90ms">and</span></span> <span class="fp-title-mask"><span class="fp-title-word" style="--fp-word-delay:135ms">digital</span></span> <span class="fp-title-mask"><span class="fp-title-word" style="--fp-word-delay:180ms">experiences.</span></span></span></h1></div><div class="fp-room-intro"><p>This is a fictional sample profile created to demonstrate Folio Studio. All projects are invented examples. Replace this content with your own work before publishing.</p></div></section>
     <section class="fp-room-exhibition" aria-labelledby="fp-room-heading"><div class="fp-room-exhibition-heading"><h2 id="fp-room-heading">Step into my work.</h2><p>Select an object to explore a project.</p></div><div class="fp-room-stage"><div class="fp-room-architecture" aria-hidden="true"><span class="fp-room-wall fp-room-wall--left"></span><span class="fp-room-wall fp-room-wall--right"></span><span class="fp-room-skylight"></span><span class="fp-room-floor"></span></div><div class="fp-room-objects"><a class="fp-room-object fp-room-object--monitor" href="#fp-project-1" aria-label="Explore Still / A reading journal"><div class="fp-room-display" aria-hidden="true"><div class="fp-room-plinth"></div><div class="fp-room-sculpture"><span class="fp-room-sculpture-inner">01</span></div><span class="fp-room-object-shadow"></span></div><div class="fp-room-object-label"><span class="fp-room-label-number">01</span><span>Still / A reading journal</span><span class="fp-room-label-arrow" aria-hidden="true">↗</span></div></a><a class="fp-room-object fp-room-object--frame" href="#fp-project-2" aria-label="Explore Fieldwork / Identity system"><div class="fp-room-display" aria-hidden="true"><div class="fp-room-plinth"></div><div class="fp-room-sculpture"><span class="fp-room-sculpture-inner">02</span></div><span class="fp-room-object-shadow"></span></div><div class="fp-room-object-label"><span class="fp-room-label-number">02</span><span>Fieldwork / Identity system</span><span class="fp-room-label-arrow" aria-hidden="true">↗</span></div></a><a class="fp-room-object fp-room-object--stack" href="#fp-project-3" aria-label="Explore Common Ground / Exhibition"><div class="fp-room-display" aria-hidden="true"><div class="fp-room-plinth"></div><div class="fp-room-sculpture"><span class="fp-room-sculpture-inner">03</span></div><span class="fp-room-object-shadow"></span></div><div class="fp-room-object-label"><span class="fp-room-label-number">03</span><span>Common Ground / Exhibition</span><span class="fp-room-label-arrow" aria-hidden="true">↗</span></div></a></div><div class="fp-room-stage-caption"><span>Personal exhibition</span><span>03 exhibits</span></div></div></section>
     <section id="fp-work" class="fp-room-records" aria-labelledby="fp-work-heading"><div class="fp-section-heading"><h2 id="fp-work-heading">Exhibit notes</h2><span>A closer look at the work</span></div><article id="fp-project-1" class="fp-room-record"><div class="fp-room-record-number" aria-hidden="true">01</div><div class="fp-room-record-content"><div class="fp-project-meta"><span class="fp-project-number">01</span><span>Product design</span><span class="fp-featured">Featured</span></div><h3>Still / A reading journal</h3><p class="fp-project-description">A fictional concept for a quieter place to collect reading notes.</p><ul class="fp-tags" aria-label="Project tags"><li>Product</li><li>Interaction</li><li>Concept</li></ul><p class="fp-no-link">No public link added</p><details class="fp-case"><summary><span>Read the case study</span><span class="fp-case-plus" aria-hidden="true">+</span></summary><div class="fp-case-content"><section><h4>Challenge</h4><p>Fictional brief: help a reader return to ideas without a distracting feed.</p></section><section><h4>Solution</h4><p>An editorial reading log with a clear hierarchy and a calm note-taking flow.</p></section><section><h4>Outcome</h4><p>Sample concept only. No real launch, client, research result, or usage metric is claimed.</p></section></div></details></div><figure class="fp-art fp-art--abstract fp-art--0"><div class="fp-art-shape fp-art-shape--one" aria-hidden="true"></div><div class="fp-art-shape fp-art-shape--two" aria-hidden="true"></div><div class="fp-art-shape fp-art-shape--three" aria-hidden="true"></div><span class="fp-art-index" aria-hidden="true">01</span><figcaption>Abstract placeholder</figcaption></figure></article><article id="fp-project-2" class="fp-room-record"><div class="fp-room-record-number" aria-hidden="true">02</div><div class="fp-room-record-content"><div class="fp-project-meta"><span class="fp-project-number">02</span><span>Brand &amp; identity</span><span class="fp-featured">Featured</span></div><h3>Fieldwork / Identity system</h3><p class="fp-project-description">A fictional identity study for an imagined independent design collective.</p><ul class="fp-tags" aria-label="Project tags"><li>Brand</li><li>Typography</li><li>Concept</li></ul><p class="fp-no-link">No public link added</p><details class="fp-case"><summary><span>Read the case study</span><span class="fp-case-plus" aria-hidden="true">+</span></summary><div class="fp-case-content"><section><h4>Challenge</h4><p>Fictional brief: make a flexible identity that works across a website and printed material.</p></section><section><h4>Solution</h4><p>A typographic system, earthy palette, and modular compositions.</p></section><section><h4>Outcome</h4><p>Sample case study, with no real client endorsement or commercial outcome.</p></section></div></details></div><figure class="fp-art fp-art--abstract fp-art--1"><div class="fp-art-shape fp-art-shape--one" aria-hidden="true"></div><div class="fp-art-shape fp-art-shape--two" aria-hidden="true"></div><div class="fp-art-shape fp-art-shape--three" aria-hidden="true"></div><span class="fp-art-index" aria-hidden="true">02</span><figcaption>Abstract placeholder</figcaption></figure></article><article id="fp-project-3" class="fp-room-record"><div class="fp-room-record-number" aria-hidden="true">03</div><div class="fp-room-record-content"><div class="fp-project-meta"><span class="fp-project-number">03</span><span>Spatial design</span><span class="fp-featured">Featured</span></div><h3>Common Ground / Exhibition</h3><p class="fp-project-description">An imagined digital exhibition that makes a small collection easy to explore.</p><ul class="fp-tags" aria-label="Project tags"><li>Space</li><li>Web</li><li>Concept</li></ul><p class="fp-no-link">No public link added</p><details class="fp-case"><summary><span>Read the case study</span><span class="fp-case-plus" aria-hidden="true">+</span></summary><div class="fp-case-content"><section><h4>Challenge</h4><p>Fictional brief: provide a visual overview without obscuring each work’s story.</p></section><section><h4>Solution</h4><p>An architectural arrangement paired with accessible, structured project details.</p></section><section><h4>Outcome</h4><p>Fictional exhibition concept. The artwork is an original abstract placeholder, not a project screenshot.</p></section></div></details></div><figure class="fp-art fp-art--abstract fp-art--2"><div class="fp-art-shape fp-art-shape--one" aria-hidden="true"></div><div class="fp-art-shape fp-art-shape--two" aria-hidden="true"></div><div class="fp-art-shape fp-art-shape--three" aria-hidden="true"></div><span class="fp-art-index" aria-hidden="true">03</span><figcaption>Abstract placeholder</figcaption></figure></article></section><footer class="fp-footer"><div><span class="fp-footer-name">Avery Morgan</span></div><a class="fp-top-link" href="#fp-top">Back to top <span aria-hidden="true">↑</span></a></footer></div></main></body></html>

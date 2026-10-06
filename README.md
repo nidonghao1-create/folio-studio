@@ -8,6 +8,8 @@
 
 ![Folio Studio desktop editor showing a fictional sample portfolio](docs/screenshots/studio-desktop.png)
 
+Motion work is available on **`feature/template-motion`**. See the [motion guide and recordings](docs/MOTION.md); it is not yet merged into the live editor.
+
 ## What you can make
 
 Four templates share the same editable content, so switching styles does not mean starting over.

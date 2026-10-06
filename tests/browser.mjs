@@ -487,6 +487,55 @@ try {
       .evaluate((el) => getComputedStyle(el).transitionDuration);
     assert.ok(duration.split(",").every((d) => parseFloat(d) === 0));
   });
+  await check(
+    "Motion replay works in every sandboxed preview without changing creator content",
+    async () => {
+      await page.emulateMedia({ reducedMotion: "no-preference" });
+      for (const id of ["editorial", "gallery", "studio", "room"]) {
+        await page
+          .locator(`[data-action="template-preview"][data-id="${id}"]`)
+          .click();
+        const frame = page.frameLocator("#explore-preview");
+        await frame.locator(`.fp--${id}`).waitFor();
+        assert.equal(
+          await page.locator("#explore-preview").getAttribute("sandbox"),
+          "",
+        );
+        await page
+          .getByRole("button", { name: "Replay motion", exact: true })
+          .click();
+        await frame.locator(`.fp--${id}`).waitFor();
+        assert.notEqual(
+          await frame
+            .locator(".fp-title-word")
+            .first()
+            .evaluate((el) => getComputedStyle(el).animationName),
+          "none",
+        );
+        await page.keyboard.press("Escape");
+      }
+      await page
+        .getByRole("button", { name: "My portfolio", exact: true })
+        .click();
+      const name = await page.locator('[data-field="name"]').inputValue();
+      await page.locator(".editor-section").last().locator("summary").click();
+      await page.locator('[data-field="motion"]').uncheck();
+      await page.frameLocator("#live-preview").locator(".fp--still").waitFor();
+      await page
+        .getByRole("button", { name: "Replay motion", exact: true })
+        .click();
+      await page.frameLocator("#live-preview").locator(".fp--still").waitFor();
+      assert.equal(
+        await page.locator('[data-field="name"]').inputValue(),
+        name,
+      );
+      assert.equal(
+        await page.locator("#live-preview").getAttribute("sandbox"),
+        "allow-popups allow-popups-to-escape-sandbox",
+      );
+      await page.locator('[data-field="motion"]').check();
+    },
+  );
   await check("No uncaught browser runtime errors", async () =>
     assert.deepEqual(runtimeErrors, []),
   );
